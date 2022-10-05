@@ -24,21 +24,25 @@ const Category = ({navigation}) => {
   }, []);
 
   const addNewCategory = () => {
-    setLoading(true);
-    protectedHttp
-      .post('/category', {category})
-      .then(res => {
-        setCategory('');
-        setSuccess('Category Added Successfully');
-        loadCategories();
-        setTimeout(() => {
-          setSuccess('');
-        }, 4000);
-      })
-      .catch(error => console.log(error))
-      .finally(() => {
-        setLoading(false);
-      });
+    if (category === '') {
+      alert('Category field is empty');
+    } else {
+      setLoading(true);
+      protectedHttp
+        .post('/category', {category})
+        .then(res => {
+          setCategory('');
+          setSuccess('Category Added Successfully');
+          loadCategories();
+          setTimeout(() => {
+            setSuccess('');
+          }, 4000);
+        })
+        .catch(error => console.log(error))
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
 
   const loadCategories = () => {
