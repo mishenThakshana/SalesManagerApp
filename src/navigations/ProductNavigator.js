@@ -1,6 +1,11 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import {TransitionPresets} from '@react-navigation/stack';
-import {Products, AddNewProduct, Category} from 'src/screens/admin/product';
+import {
+  Products,
+  AddNewProduct,
+  Category,
+  AllProducts,
+} from 'src/screens/admin/product';
 import routes from 'src/constants/routes';
 
 const Stack = createStackNavigator();
@@ -15,6 +20,7 @@ const ProductNavigator = () => {
       }}>
       <Stack.Screen name={routes.PRODUCTS} component={Products} />
       <Stack.Screen name={routes.ADD_NEW_PRODUCT} component={AddNewProduct} />
+      <Stack.Screen name={routes.ALL_PRODUCTS} component={AllProducts} />
       <Stack.Screen name={routes.CATEGORY} component={Category} />
     </Stack.Navigator>
   );

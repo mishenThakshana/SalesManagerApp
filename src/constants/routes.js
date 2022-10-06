@@ -6,5 +6,6 @@ export default {
   PRODUCT_NAVIGATOR: 'Products',
   PRODUCTS: 'Products Screen',
   ADD_NEW_PRODUCT: 'Add New Product',
+  ALL_PRODUCTS: 'All Products',
   CATEGORY: 'Category',
 };

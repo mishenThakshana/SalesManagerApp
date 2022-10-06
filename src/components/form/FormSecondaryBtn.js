@@ -19,7 +19,13 @@ const FormSecondaryBtn = ({handler, icon, label, loading = false}) => {
           ) : (
             <>
               <Ionicon name={icon} size={22} color="#fff" />
-              <Text style={{color: '#fff', marginLeft: 10, fontWeight: 'bold'}}>
+              <Text
+                style={{
+                  color: '#fff',
+                  marginLeft: 10,
+                  fontWeight: 'bold',
+                  fontSize: 16,
+                }}>
                 {label}
               </Text>
             </>

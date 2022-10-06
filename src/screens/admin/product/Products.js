@@ -14,7 +14,10 @@ const Products = ({navigation}) => {
         handler={() => navigation.navigate(routes.CATEGORY)}
         label="Categories"
       />
-      <LargeBtn label="All products" />
+      <LargeBtn
+        handler={() => navigation.navigate(routes.ALL_PRODUCTS)}
+        label="All products"
+      />
     </SafeAreaView>
   );
 };
