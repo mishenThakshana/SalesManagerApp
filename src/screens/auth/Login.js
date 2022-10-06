@@ -1,10 +1,10 @@
 import {useState, useContext} from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import {AuthContext} from 'src/context/AuthContext';
 import {
   FormTitle,
   FormInput,
-  FormBtn,
+  FormPrimaryBtn,
   FormLink,
   FormAlert,
 } from 'src/components/form';
@@ -32,7 +32,10 @@ const Login = ({navigation}) => {
         setUserRole(res.data.user.role);
         AsyncStorage.setItem('app_user', JSON.stringify(res.data.user));
         AsyncStorage.setItem('app_user_token', JSON.stringify(res.data.token));
-        AsyncStorage.setItem('app_user_role', JSON.stringify(res.data.user.role));
+        AsyncStorage.setItem(
+          'app_user_role',
+          JSON.stringify(res.data.user.role),
+        );
       })
       .catch(error => setError(firstValueOf(error.response.data)))
       .finally(() => setLoading(false));
@@ -44,7 +47,14 @@ const Login = ({navigation}) => {
       {error && <FormAlert message={error} type="danger" />}
       <FormInput handler={setEmail} type="email" placeholder="Email" />
       <FormInput handler={setPassword} type="password" placeholder="Password" />
-      <FormBtn handler={loginUser} label="Login" loading={loading} />
+      <View style={{width: '100%'}}>
+        <FormPrimaryBtn
+          handler={loginUser}
+          label="Login"
+          loading={loading}
+          icon="ios-enter-outline"
+        />
+      </View>
       <FormLink
         handler={() => navigation.navigate(routes.REGISTER)}
         mainText="Don't have an account?"

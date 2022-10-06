@@ -1,9 +1,9 @@
 import {useState} from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import {
   FormTitle,
   FormInput,
-  FormBtn,
+  FormPrimaryBtn,
   FormLink,
   FormAlert,
 } from 'src/components/form';
@@ -69,7 +69,15 @@ const Register = ({navigation}) => {
         placeholder="Password"
         value={password}
       />
-      <FormBtn handler={registerUser} label="Register" loading={loading} />
+      <View style={{width: '100%'}}>
+        <FormPrimaryBtn
+          handler={registerUser}
+          label="Register"
+          loading={loading}
+          icon="ios-enter-outline"
+        />
+      </View>
+
       <FormLink
         handler={() => navigation.navigate(routes.LOGIN)}
         mainText="Already have an account?"

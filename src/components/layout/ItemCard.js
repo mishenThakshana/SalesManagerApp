@@ -15,26 +15,25 @@ const ItemCard = ({id, text, editHandler, deleteHandler}) => {
           padding: 20,
         }}>
         <View>
-          <Text style={{fontSize: 18}}>{text}</Text>
+          <Text style={{fontSize: 18, color: '#A9A9A9'}}>{text}</Text>
         </View>
         <View
           style={{
+            flexDirection: 'row',
             alignItems: 'center',
           }}>
-          <View>
-            <TouchableOpacity onPress={() => deleteHandler(id)}>
-              <Ionicon
-                style={{marginVertical: 5}}
-                name="trash-outline"
-                size={22}
-                color="red"
-              />
-            </TouchableOpacity>
+          <TouchableOpacity onPress={() => deleteHandler(id)}>
+            <Ionicon
+              style={{marginHorizontal: 5}}
+              name="trash-outline"
+              size={22}
+              color="red"
+            />
+          </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => editHandler(id)}>
-              <Ionicon name="ios-create-outline" size={22} color="#2196F3" />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity onPress={() => editHandler(id)}>
+            <Ionicon name="ios-create-outline" size={22} color="#2196F3" />
+          </TouchableOpacity>
         </View>
       </View>
     </View>

@@ -7,7 +7,12 @@ import {
   View,
 } from 'react-native';
 import {SingleTopbar, ItemCard} from 'src/components/layout';
-import {FormInput, FormBtn, FormAlert, FormCancel} from 'src/components/form';
+import {
+  FormInput,
+  FormPrimaryBtn,
+  FormAlert,
+  FormCancel,
+} from 'src/components/form';
 import {protectedHttp} from 'src/helpers/HttpHelper';
 
 const Category = ({navigation}) => {
@@ -110,38 +115,41 @@ const Category = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <SingleTopbar title="Categories" navigation={navigation} />
-      <View style={{marginVertical: 20, alignItems: 'center'}}>
+
+      <View style={{alignItems: 'center'}}>
         {success && <FormAlert message={success} type="success" />}
-        <FormInput
-          handler={setCategory}
-          placeholder="Category name"
-          value={category}
-        />
-        {editMode ? (
-          <FormBtn
-            handler={updateCategory}
-            label="Update category"
-            loading={loading}
-          />
-        ) : (
-          <FormBtn
-            handler={addNewCategory}
-            label="Add new category"
-            loading={loading}
-          />
-        )}
-        {editMode && (
-          <FormCancel
-            handler={() => {
-              setEditMode(!editMode);
-              setCategory('');
-              setCategoryId('');
-            }}
-          />
-        )}
       </View>
+      <FormInput
+        handler={setCategory}
+        placeholder="Category name"
+        value={category}
+      />
+      {editMode ? (
+        <FormPrimaryBtn
+          icon="ios-create-outline"
+          handler={updateCategory}
+          label="Update category"
+          loading={loading}
+        />
+      ) : (
+        <FormPrimaryBtn
+          handler={addNewCategory}
+          icon="ios-add-circle-outline"
+          label="Add new category"
+          loading={loading}
+        />
+      )}
+      {editMode && (
+        <FormCancel
+          handler={() => {
+            setEditMode(!editMode);
+            setCategory('');
+            setCategoryId('');
+          }}
+        />
+      )}
 
       {initializing ? (
         <ActivityIndicator size={25} color="#2196F3" />

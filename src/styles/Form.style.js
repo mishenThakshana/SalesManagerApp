@@ -19,22 +19,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     padding: 10,
     borderRadius: 5,
-  },
-  formBtnContainer: {
-    width: '80%',
-    marginVertical: 5,
-  },
-  formBtn: {
-    backgroundColor: '#2196F3',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 18,
-    borderRadius: 5,
-  },
-  formBtnLabel: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#fff',
+    color: '#000',
   },
   linkContainer: {
     justifyContent: 'center',
