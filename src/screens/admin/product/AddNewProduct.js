@@ -7,7 +7,7 @@ import {
   FormAlert,
   FormPrimaryBtn,
   FormImageRow,
-  FormPicker,
+  CategoryPicker,
   FormInputWithLink,
   FormRadio,
   FormSecondaryBtn,
@@ -107,7 +107,7 @@ const AddNewProduct = ({navigation}) => {
       <View style={{marginTop: 10}}>
         <FormInput handler={setName} placeholder="Product Name" value={name} />
       </View>
-      <FormPicker
+      <CategoryPicker
         initializer={initializing}
         title="Select a category"
         handler={setSelectedCategory}

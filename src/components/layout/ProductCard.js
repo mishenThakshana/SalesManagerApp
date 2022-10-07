@@ -1,19 +1,15 @@
 import {View, Text, TouchableOpacity} from 'react-native';
+import routes from 'src/constants/routes';
 import styles from 'src/styles/Global.style';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
-const ProductCard = ({item}) => {
+const ProductCard = ({item, navigation}) => {
   return (
     <View style={styles.productCardContainer}>
       <View style={styles.productCardTextBlock}>
-        <View>
-          <Text style={{fontSize: 20, color: '#fff'}}>{item.name}</Text>
-        </View>
-        <View>
-          <Text style={{fontSize: 40, color: '#fff', fontWeight: 'bold'}}>
-            52
-          </Text>
-        </View>
+        <Text style={{fontSize: 24, color: '#fff', fontWeight: 'bold'}}>
+          {item.name}
+        </Text>
       </View>
       <View style={styles.productCardBtnContainer}>
         <TouchableOpacity>
@@ -21,7 +17,13 @@ const ProductCard = ({item}) => {
             <Ionicon name="ios-eye-outline" size={22} color="#fff" />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(routes.ADD_STOCK, {
+              id: item.id,
+              name: item.name,
+            })
+          }>
           <View style={styles.productCardBtn}>
             <Ionicon name="ios-add-circle-outline" size={22} color="#fff" />
           </View>

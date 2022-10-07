@@ -1,10 +1,10 @@
 import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
-const FormPrimaryBtn = ({handler, icon, label, loading = false}) => {
+const FormBtnLg = ({handler, icon, label, loading = false}) => {
   return (
     <View style={{alignItems: 'center'}}>
-      <TouchableOpacity onPress={handler} style={{width: '80%'}}>
+      <TouchableOpacity onPress={handler} style={{width: '90%'}}>
         <View
           style={{
             flexDirection: 'row',
@@ -37,4 +37,4 @@ const FormPrimaryBtn = ({handler, icon, label, loading = false}) => {
   );
 };
 
-export default FormPrimaryBtn;
+export default FormBtnLg;

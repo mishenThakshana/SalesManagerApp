@@ -15,30 +15,30 @@ import {
 } from 'src/components/form';
 import {protectedHttp} from 'src/helpers/HttpHelper';
 
-const Category = ({navigation}) => {
-  const [category, setCategory] = useState('');
-  const [categoryId, setCategoryId] = useState('');
-  const [categories, setCategories] = useState('');
+const AddSize = ({navigation}) => {
+  const [size, setSize] = useState('');
+  const [sizeId, setSizeId] = useState('');
+  const [sizes, setSizes] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
-    loadCategories();
+    loadSizes();
   }, []);
 
-  const addNewCategory = () => {
-    if (category === '') {
-      alert('Category field is empty');
+  const addNewSize = () => {
+    if (size === '') {
+      alert('Size field is empty');
     } else {
       setLoading(true);
       protectedHttp
-        .post('/category', {category})
+        .post('/size', {size})
         .then(res => {
-          setCategory('');
-          setSuccess('Category Added Successfully');
-          loadCategories();
+          setSize('');
+          setSuccess('Size Added Successfully');
+          loadSizes();
           setTimeout(() => {
             setSuccess('');
           }, 4000);
@@ -50,38 +50,38 @@ const Category = ({navigation}) => {
     }
   };
 
-  const loadCategories = () => {
-    protectedHttp.get('/category').then(res => {
-      setCategories(res.data);
+  const loadSizes = () => {
+    protectedHttp.get('/size').then(res => {
+      setSizes(res.data);
       setInitializing(false);
     });
   };
 
   const triggerEditMode = id => {
-    setCategoryId(id);
+    setSizeId(id);
     setEditMode(true);
-    setCategory(categories.filter(element => element.id === id)[0].category);
+    setSize(sizes.filter(element => element.id === id)[0].size);
   };
 
-  const updateCategory = () => {
+  const updateSize = () => {
     setLoading(true);
     protectedHttp
-      .put(`/category/${categoryId}`, {category})
+      .put(`/size/${sizeId}`, {size})
       .then(res => {
-        loadCategories();
-        setSuccess('Category Updated Successfully');
+        loadSizes();
+        setSuccess('Size Updated Successfully');
         setTimeout(() => {
           setSuccess('');
         }, 4000);
         setEditMode(!editMode);
-        setCategory('');
-        setCategoryId('');
+        setSize('');
+        setSizeId('');
       })
       .finally(() => setLoading(false));
   };
 
-  const removeCategory = id => {
-    Alert.alert('Delete Category', 'Are you sure to delete this category?', [
+  const removeSize = id => {
+    Alert.alert('Delete Size', 'Are you sure to delete this size?', [
       {
         text: 'Cancel',
         style: 'cancel',
@@ -91,9 +91,9 @@ const Category = ({navigation}) => {
         onPress: () => {
           setInitializing(true);
           protectedHttp
-            .delete(`/category/${id}`)
+            .delete(`/size/${id}`)
             .then(res => {
-              loadCategories();
+              loadSizes();
             })
             .finally(() => setInitializing(false));
         },
@@ -102,41 +102,37 @@ const Category = ({navigation}) => {
   };
 
   const Item = ({data, item}) => {
-    const {id, category} = item;
+    const {id, size} = item;
     return (
       <ItemCard
         id={id}
-        text={category}
+        text={size}
         editHandler={triggerEditMode}
-        deleteHandler={removeCategory}
+        deleteHandler={removeSize}
       />
     );
   };
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <SingleTopbar title="Categories" navigation={navigation} />
+      <SingleTopbar title="Sizes" navigation={navigation} />
 
       <View style={{alignItems: 'center'}}>
         {success && <FormAlert message={success} type="success" />}
       </View>
-      <FormInput
-        handler={setCategory}
-        placeholder="Category name"
-        value={category}
-      />
+      <FormInput handler={setSize} placeholder="Size name" value={size} />
       {editMode ? (
         <FormPrimaryBtn
           icon="ios-create-outline"
-          handler={updateCategory}
-          label="Update category"
+          handler={updateSize}
+          label="Update size"
           loading={loading}
         />
       ) : (
         <FormPrimaryBtn
-          handler={addNewCategory}
+          handler={addNewSize}
           icon="ios-add-circle-outline"
-          label="Add new category"
+          label="Add new size"
           loading={loading}
         />
       )}
@@ -144,8 +140,8 @@ const Category = ({navigation}) => {
         <FormCancel
           handler={() => {
             setEditMode(!editMode);
-            setCategory('');
-            setCategoryId('');
+            setSize('');
+            setSizeId('');
           }}
         />
       )}
@@ -154,7 +150,7 @@ const Category = ({navigation}) => {
         <ActivityIndicator size={25} color="#2196F3" />
       ) : (
         <FlatList
-          data={categories}
+          data={sizes}
           renderItem={Item}
           keyExtractor={item => item.id}
         />
@@ -163,4 +159,4 @@ const Category = ({navigation}) => {
   );
 };
 
-export default Category;
+export default AddSize;

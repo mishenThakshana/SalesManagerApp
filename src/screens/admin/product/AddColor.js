@@ -15,30 +15,30 @@ import {
 } from 'src/components/form';
 import {protectedHttp} from 'src/helpers/HttpHelper';
 
-const Category = ({navigation}) => {
-  const [category, setCategory] = useState('');
-  const [categoryId, setCategoryId] = useState('');
-  const [categories, setCategories] = useState('');
+const AddColor = ({navigation}) => {
+  const [color, setColor] = useState('');
+  const [colorId, setColorId] = useState('');
+  const [colors, setColors] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
-    loadCategories();
+    loadColors();
   }, []);
 
-  const addNewCategory = () => {
-    if (category === '') {
-      alert('Category field is empty');
+  const addNewColor = () => {
+    if (color === '') {
+      alert('Color field is empty');
     } else {
       setLoading(true);
       protectedHttp
-        .post('/category', {category})
+        .post('/color', {color})
         .then(res => {
-          setCategory('');
-          setSuccess('Category Added Successfully');
-          loadCategories();
+          setColor('');
+          setSuccess('Color Added Successfully');
+          loadColors();
           setTimeout(() => {
             setSuccess('');
           }, 4000);
@@ -50,38 +50,38 @@ const Category = ({navigation}) => {
     }
   };
 
-  const loadCategories = () => {
-    protectedHttp.get('/category').then(res => {
-      setCategories(res.data);
+  const loadColors = () => {
+    protectedHttp.get('/color').then(res => {
+      setColors(res.data);
       setInitializing(false);
     });
   };
 
   const triggerEditMode = id => {
-    setCategoryId(id);
+    setColorId(id);
     setEditMode(true);
-    setCategory(categories.filter(element => element.id === id)[0].category);
+    setColor(colors.filter(element => element.id === id)[0].color);
   };
 
-  const updateCategory = () => {
+  const updateColor = () => {
     setLoading(true);
     protectedHttp
-      .put(`/category/${categoryId}`, {category})
+      .put(`/color/${colorId}`, {color})
       .then(res => {
-        loadCategories();
-        setSuccess('Category Updated Successfully');
+        loadColors();
+        setSuccess('Color Updated Successfully');
         setTimeout(() => {
           setSuccess('');
         }, 4000);
         setEditMode(!editMode);
-        setCategory('');
-        setCategoryId('');
+        setColor('');
+        setColorId('');
       })
       .finally(() => setLoading(false));
   };
 
-  const removeCategory = id => {
-    Alert.alert('Delete Category', 'Are you sure to delete this category?', [
+  const removeColor = id => {
+    Alert.alert('Delete Color', 'Are you sure to delete this color?', [
       {
         text: 'Cancel',
         style: 'cancel',
@@ -91,9 +91,9 @@ const Category = ({navigation}) => {
         onPress: () => {
           setInitializing(true);
           protectedHttp
-            .delete(`/category/${id}`)
+            .delete(`/color/${id}`)
             .then(res => {
-              loadCategories();
+              loadColors();
             })
             .finally(() => setInitializing(false));
         },
@@ -102,41 +102,41 @@ const Category = ({navigation}) => {
   };
 
   const Item = ({data, item}) => {
-    const {id, category} = item;
+    const {id, color} = item;
     return (
       <ItemCard
         id={id}
-        text={category}
+        text={color}
         editHandler={triggerEditMode}
-        deleteHandler={removeCategory}
+        deleteHandler={removeColor}
       />
     );
   };
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <SingleTopbar title="Categories" navigation={navigation} />
+      <SingleTopbar title="Colors" navigation={navigation} />
 
       <View style={{alignItems: 'center'}}>
         {success && <FormAlert message={success} type="success" />}
       </View>
       <FormInput
-        handler={setCategory}
-        placeholder="Category name"
-        value={category}
+        handler={setColor}
+        placeholder="Color name"
+        value={color}
       />
       {editMode ? (
         <FormPrimaryBtn
           icon="ios-create-outline"
-          handler={updateCategory}
-          label="Update category"
+          handler={updateColor}
+          label="Update color"
           loading={loading}
         />
       ) : (
         <FormPrimaryBtn
-          handler={addNewCategory}
+          handler={addNewColor}
           icon="ios-add-circle-outline"
-          label="Add new category"
+          label="Add new color"
           loading={loading}
         />
       )}
@@ -144,8 +144,8 @@ const Category = ({navigation}) => {
         <FormCancel
           handler={() => {
             setEditMode(!editMode);
-            setCategory('');
-            setCategoryId('');
+            setColor('');
+            setColorId('');
           }}
         />
       )}
@@ -154,7 +154,7 @@ const Category = ({navigation}) => {
         <ActivityIndicator size={25} color="#2196F3" />
       ) : (
         <FlatList
-          data={categories}
+          data={colors}
           renderItem={Item}
           keyExtractor={item => item.id}
         />
@@ -163,4 +163,4 @@ const Category = ({navigation}) => {
   );
 };
 
-export default Category;
+export default AddColor;

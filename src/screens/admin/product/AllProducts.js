@@ -59,7 +59,7 @@ const AllProducts = ({navigation}) => {
 
   const filterComponent = () => {
     return filteredProducts.map(item => (
-      <ProductCard key={item.id} item={item} />
+      <ProductCard key={item.id} item={item} navigation={navigation} />
     ));
   };
 
@@ -78,7 +78,9 @@ const AllProducts = ({navigation}) => {
       ) : (
         <FlatList
           data={products}
-          renderItem={({item}) => <ProductCard item={item} />}
+          renderItem={({item}) => (
+            <ProductCard item={item} navigation={navigation} />
+          )}
           keyExtractor={(item, index) => String(index)}
           onEndReachedThreshold={0}
           onEndReached={loadMoreProducts}

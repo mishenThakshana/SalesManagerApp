@@ -6,6 +6,7 @@ const FormInputWithLink = ({
   value,
   btnLabel,
   btnHandler,
+  type,
 }) => {
   return (
     <View style={{alignItems: 'center'}}>
@@ -30,6 +31,7 @@ const FormInputWithLink = ({
           }}
           value={value}
           placeholderTextColor="#A9A9A9"
+          keyboardType={type === 'number' ? 'number-pad' : ''}
         />
         <TouchableOpacity onPress={btnHandler}>
           <Text style={{color: '#2196F3', fontSize: 15, fontWeight: 'bold'}}>

@@ -1,7 +1,7 @@
 import {View, TextInput} from 'react-native';
 import styles from 'src/styles/Form.style';
 
-const FormInput = ({handler, placeholder, type, value}) => {
+const FormInput = ({handler, placeholder, type, value, disabled = false}) => {
   return (
     <View style={styles.formInputContainer}>
       <TextInput
@@ -11,6 +11,8 @@ const FormInput = ({handler, placeholder, type, value}) => {
             ? 'email-address'
             : type === 'mobile'
             ? 'phone-pad'
+            : type === 'number'
+            ? 'numeric'
             : ''
         }
         placeholder={placeholder}
@@ -18,6 +20,7 @@ const FormInput = ({handler, placeholder, type, value}) => {
         placeholderTextColor="#A9A9A9"
         secureTextEntry={type === 'password' && true}
         value={value}
+        editable={!disabled}
       />
     </View>
   );

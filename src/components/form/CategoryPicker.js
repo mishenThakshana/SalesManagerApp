@@ -1,7 +1,7 @@
 import {View, Text, ActivityIndicator, TouchableOpacity} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 
-const FormPicker = ({
+const CategoryPicker = ({
   initializer,
   title,
   handler,
@@ -54,4 +54,4 @@ const FormPicker = ({
   );
 };
 
-export default FormPicker;
+export default CategoryPicker;
