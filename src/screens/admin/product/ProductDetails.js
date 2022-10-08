@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useIsFocused} from '@react-navigation/native';
 import {ActivityIndicator, Alert, SafeAreaView} from 'react-native';
-import {SingleTopbar, StockCard, EmptyScreen} from 'src/components/layout';
+import {SingleTopbar, StockCard, EmptyScreenFull} from 'src/components/layout';
 import {protectedHttp} from 'src/helpers/HttpHelper';
 import routes from 'src/constants/routes';
 
@@ -67,7 +67,7 @@ const ProductDetails = ({route, navigation}) => {
             deleteHandler={() => deleteStock(stock.id)}
           />
         ))}
-      {stocks.length === 0 && initializing === false ? <EmptyScreen /> : null}
+      {stocks.length === 0 && initializing === false ? <EmptyScreenFull /> : null}
     </SafeAreaView>
   );
 };

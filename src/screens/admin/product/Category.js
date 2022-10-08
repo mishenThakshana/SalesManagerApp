@@ -6,7 +6,7 @@ import {
   SafeAreaView,
   View,
 } from 'react-native';
-import {SingleTopbar, ItemCard} from 'src/components/layout';
+import {SingleTopbar, ItemCard, EmptyScreenFull} from 'src/components/layout';
 import {
   FormInput,
   FormPrimaryBtn,
@@ -150,8 +150,9 @@ const Category = ({navigation}) => {
         />
       )}
 
-      {initializing ? (
-        <ActivityIndicator size={25} color="#8200d6" />
+      {initializing && <ActivityIndicator size={25} color="#8200d6" />}
+      {categories.length === 0 && !initializing ? (
+        <EmptyScreenFull />
       ) : (
         <FlatList
           data={categories}
