@@ -12,7 +12,13 @@ const ProductCard = ({item, navigation}) => {
         </Text>
       </View>
       <View style={styles.productCardBtnContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(routes.PRODUCT_DETAILS, {
+              id: item.id,
+              name: item.name,
+            })
+          }>
           <View style={styles.productCardBtn}>
             <Ionicon name="ios-eye-outline" size={22} color="#fff" />
           </View>

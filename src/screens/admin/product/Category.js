@@ -151,7 +151,7 @@ const Category = ({navigation}) => {
       )}
 
       {initializing ? (
-        <ActivityIndicator size={25} color="#2196F3" />
+        <ActivityIndicator size={25} color="#8200d6" />
       ) : (
         <FlatList
           data={categories}

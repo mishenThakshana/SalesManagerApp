@@ -8,7 +8,8 @@ export default {
   ADD_NEW_PRODUCT: 'Add New Product',
   ALL_PRODUCTS: 'All Products',
   ADD_STOCK: 'Add Stock',
-  ADD_COLOR: 'Add Color',
+  ADJUST_STOCK: 'Adjust Stock',
   ADD_SIZE: 'Add Size',
   CATEGORY: 'Category',
+  PRODUCT_DETAILS: 'Product Details',
 };

@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-export const BaseURL = 'https://08e5-113-59-213-37.ap.ngrok.io/api';
+export const BaseURL = 'https://d960-113-59-217-173.in.ngrok.io/api';
 
 export const http = axios.create({
   baseURL: BaseURL,

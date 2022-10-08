@@ -117,11 +117,12 @@ const AddNewProduct = ({navigation}) => {
         routeTitle="Add new category"
       />
       <FormInputWithLink
-        handler={() => setCode(() => String(QHashInteger()))}
+        handler={setCode}
         value={code}
         placeholder="Code"
         btnHandler={() => setCode(() => String(QHashInteger()))}
         btnLabel="Generate Code"
+        type="number"
       />
       <FormRadio
         handler={toggleAllowToSell}

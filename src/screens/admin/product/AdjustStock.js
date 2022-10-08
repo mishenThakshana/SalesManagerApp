@@ -5,28 +5,22 @@ import {SingleTopbar} from 'src/components/layout';
 import {
   FormAlert,
   FormBtnLg,
-  SizePicker,
   DayPicker,
-  FormColorPicker,
   FormInputWithLink,
 } from 'src/components/form';
 import {format} from 'date-fns';
 import {protectedHttp} from 'src/helpers/HttpHelper';
 import {firstValueOf} from 'src/helpers/HelperFunctions';
-import routes from 'src/constants/routes';
 
-const AddStock = ({route, navigation}) => {
-  const {id, name} = route.params;
+const AdjustStock = ({route, navigation}) => {
+  const {stock} = route.params;
   const isFocused = useIsFocused();
   const scrollRef = useRef();
   const [cost, setCost] = useState('');
   const [selling, setSelling] = useState('');
   const [discount, setDiscount] = useState('');
-  const [discountType, setDiscountType] = useState('Percentage');
+  const [discountType, setDiscountType] = useState('Price');
   const [quantity, setQuantity] = useState('');
-  const [sizes, setSizes] = useState([]);
-  const [color, setSelectedColor] = useState('');
-  const [size, setSelectedSize] = useState('');
   const [manufatureDateObject, setManufatureDateObject] = useState(new Date());
   const [expiryDateObject, setExpiryDateObject] = useState(new Date());
   const [selectedManufactureDate, setSelectedManufactureDate] = useState(
@@ -37,33 +31,28 @@ const AddStock = ({route, navigation}) => {
   );
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [initializing, setInitializing] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const addStock = () => {
+  const adjustStock = () => {
+    const id = stock.id;
     setLoading(true);
     protectedHttp
-      .post('/stock', {
+      .put(`/stock/${id}`, {
         product_id: id,
         cost: Number(cost),
         selling: Number(selling),
         quantity: Number(quantity),
-        color,
-        size,
         selectedManufactureDate,
         selectedExpiryDate,
         added: Date.now(),
       })
       .then(res => {
         setError('');
-        setCost('');
-        setDiscount('');
-        setQuantity('');
         scrollRef.current.scrollTo({
           y: 0,
           animated: true,
         });
-        setSuccess('Stock added successfully');
+        setSuccess('Stock adjusted successfully');
         setTimeout(() => {
           setSuccess('');
         }, 4000);
@@ -79,22 +68,16 @@ const AddStock = ({route, navigation}) => {
       .finally(() => setLoading(false));
   };
 
-  const loadSizes = () => {
-    protectedHttp.get('/size').then(res => {
-      setSizes(res.data);
-      setInitializing(false);
-    });
-  };
-
   useEffect(() => {
     if (isFocused) {
-      loadSizes();
+      setCost(stock.cost.split('.')[0]);
+      setSelling(stock.selling);
+      setDiscount(String(stock.cost - stock.selling));
+      setQuantity(String(stock.quantity));
+      setManufatureDateObject(new Date(stock.man_date));
+      setExpiryDateObject(new Date(stock.exp_date));
     }
   }, [isFocused]);
-
-  useEffect(() => {
-    setSelling(cost);
-  }, [cost]);
 
   //Discount calculating
   useEffect(() => {
@@ -122,7 +105,7 @@ const AddStock = ({route, navigation}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-      <SingleTopbar title={`Add stock to ${name}`} navigation={navigation} />
+      <SingleTopbar title={`Adjust stock`} navigation={navigation} />
       <ScrollView ref={scrollRef}>
         <View style={{alignItems: 'center'}}>
           {success && <FormAlert message={success} type="success" />}
@@ -164,16 +147,6 @@ const AddStock = ({route, navigation}) => {
             btnLabel="Quantity"
           />
         </View>
-        <FormColorPicker handler={setSelectedColor} value={color} />
-        <SizePicker
-          initializer={initializing}
-          title="Select a size"
-          handler={setSelectedSize}
-          value={size}
-          array={sizes}
-          routeHandler={() => navigation.navigate(routes.ADD_SIZE)}
-          routeTitle="Add new size"
-        />
         <DayPicker
           title="Manufactured Date"
           date={manufatureDateObject}
@@ -190,13 +163,13 @@ const AddStock = ({route, navigation}) => {
         />
       </ScrollView>
       <FormBtnLg
-        handler={addStock}
-        icon="ios-add-circle-outline"
-        label="Add Stock"
+        handler={adjustStock}
+        icon="ios-create-outline"
+        label="Adjust Stock"
         loading={loading}
       />
     </SafeAreaView>
   );
 };
 
-export default AddStock;
+export default AdjustStock;

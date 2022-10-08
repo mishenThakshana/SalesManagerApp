@@ -9,6 +9,7 @@ const SizePicker = ({
   array,
   routeTitle,
   routeHandler,
+  selectedSize,
 }) => {
   return (
     <View
@@ -33,7 +34,14 @@ const SizePicker = ({
             style={{backgroundColor: '#B2BEB5', width: '80%'}}
             selectedValue={value}
             onValueChange={(itemValue, itemIndex) => handler(itemValue)}>
-            <Picker.Item label="None" value={0} />
+            {selectedSize ? (
+              <Picker.Item
+                label={selectedSize.size}
+                value={selectedSize.size_id}
+              />
+            ) : (
+              <Picker.Item label="None" value={0} />
+            )}
             {array &&
               array.map(element => (
                 <Picker.Item

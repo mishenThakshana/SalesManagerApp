@@ -6,8 +6,9 @@ import {
   Category,
   AllProducts,
   AddStock,
-  AddColor,
+  AdjustStock,
   AddSize,
+  ProductDetails,
 } from 'src/screens/admin/product';
 import routes from 'src/constants/routes';
 
@@ -25,9 +26,10 @@ const ProductNavigator = () => {
       <Stack.Screen name={routes.ADD_NEW_PRODUCT} component={AddNewProduct} />
       <Stack.Screen name={routes.ALL_PRODUCTS} component={AllProducts} />
       <Stack.Screen name={routes.ADD_STOCK} component={AddStock} />
-      <Stack.Screen name={routes.ADD_COLOR} component={AddColor} />
+      <Stack.Screen name={routes.ADJUST_STOCK} component={AdjustStock} />
       <Stack.Screen name={routes.ADD_SIZE} component={AddSize} />
       <Stack.Screen name={routes.CATEGORY} component={Category} />
+      <Stack.Screen name={routes.PRODUCT_DETAILS} component={ProductDetails} />
     </Stack.Navigator>
   );
 };
