@@ -1,5 +1,6 @@
 export {default as Products} from './Products';
 export {default as AddNewProduct} from './AddNewProduct';
+export {default as UpdateProduct} from './UpdateProduct';
 export {default as AllProducts} from './AllProducts';
 export {default as AddStock} from './AddStock';
 export {default as AdjustStock} from './AdjustStock';

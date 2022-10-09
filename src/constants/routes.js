@@ -6,6 +6,7 @@ export default {
   PRODUCT_NAVIGATOR: 'Products',
   PRODUCTS: 'Products Screen',
   ADD_NEW_PRODUCT: 'Add New Product',
+  UPDATE_PRODUCT: 'Update Product',
   ALL_PRODUCTS: 'All Products',
   ADD_STOCK: 'Add Stock',
   ADJUST_STOCK: 'Adjust Stock',

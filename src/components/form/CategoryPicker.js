@@ -9,6 +9,7 @@ const CategoryPicker = ({
   array,
   routeTitle,
   routeHandler,
+  selectedCategory,
 }) => {
   return (
     <View
@@ -33,7 +34,14 @@ const CategoryPicker = ({
             style={{backgroundColor: '#B2BEB5', width: '80%'}}
             selectedValue={value}
             onValueChange={(itemValue, itemIndex) => handler(itemValue)}>
-            <Picker.Item label="None" value={0} />
+             {selectedCategory ? (
+              <Picker.Item
+                label={selectedCategory.category}
+                value={selectedCategory.cat_id}
+              />
+            ) : (
+              <Picker.Item label="None" value={0} />
+            )}
             {array &&
               array.map(element => (
                 <Picker.Item

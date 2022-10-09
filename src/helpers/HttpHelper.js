@@ -3,6 +3,8 @@ import axios from 'axios';
 
 export const BaseURL = 'https://3554-113-59-194-184.in.ngrok.io/api';
 
+export const ImgURL = 'https://3554-113-59-194-184.in.ngrok.io/images';
+
 export const http = axios.create({
   baseURL: BaseURL,
   headers: {

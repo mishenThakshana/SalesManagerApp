@@ -12,12 +12,13 @@ import {
   FormRadio,
   FormSecondaryBtn,
 } from 'src/components/form';
-import {protectedHttp, mediaHttp} from 'src/helpers/HttpHelper';
+import {protectedHttp, mediaHttp, ImgURL} from 'src/helpers/HttpHelper';
 import {QHashInteger, firstValueOf} from 'src/helpers/HelperFunctions';
 import routes from 'src/constants/routes';
 import {launchImageLibrary} from 'react-native-image-picker';
 
-const AddNewProduct = ({navigation}) => {
+const UpdateProduct = ({route, navigation}) => {
+  const {id} = route.params;
   const isFocused = useIsFocused();
   const [imageUri, setImageUri] = useState([]);
   const [name, setName] = useState('');
@@ -25,41 +26,70 @@ const AddNewProduct = ({navigation}) => {
   const [allowToSell, setAllowToSell] = useState(true);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(0);
+  const [categoryObject, setCategoryObject] = useState();
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
-    if (isFocused) loadCategories();
+    if (isFocused) {
+      loadProduct();
+    }
   }, [isFocused]);
+
+  useEffect(() => {
+    loadCategories();
+  }, [categoryObject]);
+
+  const loadProduct = () => {
+    protectedHttp.get(`/product/${id}`).then(res => {
+      const product = res.data[0][0];
+      setName(product.name);
+      setCode(product.code);
+      setAllowToSell(product.allow_to_sell === 1 ? true : false);
+      setSelectedCategory(product.cat_id);
+      setCategoryObject({id: product.cat_id, category: product.category});
+      let arr = [];
+      res.data[1].map(image => {
+        let imageUrl = `${ImgURL}/products/${image.image}`;
+        arr.push({
+          id: image.id,
+          uri: imageUrl,
+          name: image.image,
+          type: `image/${image.image.split('.')[1]}`,
+        });
+      });
+      setImageUri(arr);
+    });
+  };
 
   const loadCategories = () => {
     protectedHttp.get('/category').then(res => {
-      setCategories(res.data);
+      setCategories(
+        res.data.filter(category => category.id != selectedCategory),
+      );
       setInitializing(false);
     });
   };
 
-  const addNewProduct = () => {
+  const updateProduct = () => {
     setLoading(true);
     setError('');
     const fd = new FormData();
     for (let i = 0; i < imageUri.length; i++) {
       fd.append('images[]', imageUri[i]);
     }
+    fd.append('id', id);
     fd.append('name', name);
     fd.append('code', code);
     fd.append('selectedCategory', selectedCategory);
     fd.append('allowToSell', allowToSell ? 1 : 0);
     fd.append('added', Date.now());
     mediaHttp
-      .post('/product', fd)
+      .post('/update-product', fd)
       .then(res => {
-        setSuccess('Product Added Successfully');
-        setName('');
-        setCode('');
-        setImageUri([]);
+        setSuccess('Product Updated Successfully');
         setTimeout(() => {
           setSuccess('');
         }, 4000);
@@ -102,7 +132,7 @@ const AddNewProduct = ({navigation}) => {
 
   return (
     <SafeAreaView>
-      <SingleTopbar title="Add new product" navigation={navigation} />
+      <SingleTopbar title="Update product" navigation={navigation} />
       <View style={{alignItems: 'center'}}>
         {error && <FormAlert type="danger" message={error} />}
         {success && <FormAlert type="success" message={success} />}
@@ -118,6 +148,7 @@ const AddNewProduct = ({navigation}) => {
         array={categories}
         routeHandler={() => navigation.navigate(routes.CATEGORY)}
         routeTitle="Add new category"
+        selectedCategory={categoryObject && categoryObject}
       />
       <FormInputWithLink
         handler={setCode}
@@ -140,13 +171,13 @@ const AddNewProduct = ({navigation}) => {
         label="Add Images"
       />
       <FormPrimaryBtn
-        handler={addNewProduct}
-        icon="ios-add-circle-outline"
-        label="Add New Product"
+        handler={updateProduct}
+        icon="ios-create-outline"
+        label="Update Product"
         loading={loading}
       />
     </SafeAreaView>
   );
 };
 
-export default AddNewProduct;
+export default UpdateProduct;

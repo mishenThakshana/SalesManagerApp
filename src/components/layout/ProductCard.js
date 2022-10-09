@@ -34,7 +34,12 @@ const ProductCard = ({item, navigation}) => {
             <Ionicon name="ios-add-circle-outline" size={22} color="#fff" />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(routes.UPDATE_PRODUCT, {
+              id: item.id,
+            })
+          }>
           <View style={styles.productCardBtn}>
             <Ionicon name="ios-create-outline" size={22} color="#fff" />
           </View>
