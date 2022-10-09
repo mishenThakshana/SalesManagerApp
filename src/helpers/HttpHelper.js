@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-export const BaseURL = 'https://28af-113-59-217-238.in.ngrok.io/api';
+export const BaseURL = 'https://3554-113-59-194-184.in.ngrok.io/api';
 
 export const http = axios.create({
   baseURL: BaseURL,
@@ -19,7 +19,24 @@ export const protectedHttp = axios.create({
   },
 });
 
+export const mediaHttp = axios.create({
+  baseURL: BaseURL,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+    Accept: 'application/json',
+  },
+});
+
 protectedHttp.interceptors.request.use(async config => {
+  let value = await AsyncStorage.getItem('app_user_token');
+  value = value.replace(/['"]+/g, '');
+  if (value !== null) {
+    config.headers['Authorization'] = 'Bearer ' + value;
+  }
+  return config;
+});
+
+mediaHttp.interceptors.request.use(async config => {
   let value = await AsyncStorage.getItem('app_user_token');
   value = value.replace(/['"]+/g, '');
   if (value !== null) {

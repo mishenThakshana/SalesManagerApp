@@ -12,7 +12,7 @@ import {
   FormRadio,
   FormSecondaryBtn,
 } from 'src/components/form';
-import {protectedHttp} from 'src/helpers/HttpHelper';
+import {protectedHttp, mediaHttp} from 'src/helpers/HttpHelper';
 import {QHashInteger, firstValueOf} from 'src/helpers/HelperFunctions';
 import routes from 'src/constants/routes';
 import {launchImageLibrary} from 'react-native-image-picker';
@@ -44,15 +44,17 @@ const AddNewProduct = ({navigation}) => {
   const addNewProduct = () => {
     setLoading(true);
     setError('');
-    protectedHttp
-      .post('/product', {
-        name,
-        code,
-        selectedCategory,
-        images: imageUri,
-        allowToSell: allowToSell ? 1 : 0,
-        added: Date.now(),
-      })
+    const fd = new FormData();
+    for (let i = 0; i < imageUri.length; i++) {
+      fd.append('images[]', imageUri[i]);
+    }
+    fd.append('name', name);
+    fd.append('code', code);
+    fd.append('selectedCategory', selectedCategory);
+    fd.append('allowToSell', allowToSell ? 1 : 0);
+    fd.append('added', Date.now());
+    mediaHttp
+      .post('/product', fd)
       .then(res => {
         setSuccess('Product Added Successfully');
         setName('');
@@ -73,19 +75,18 @@ const AddNewProduct = ({navigation}) => {
 
   const addImages = () => {
     const options = {
-      storageOptions: {
-        path: 'images',
-        mediaType: 'photo',
-      },
-      includeBase64: true,
+      title: 'Select Images',
+      type: 'Library',
       selectionLimit: 3,
+      mediaType: 'photo',
+      includeBase64: false,
     };
 
     launchImageLibrary(options, response => {
       let arr = [];
       typeof response.assets === 'object' &&
         response.assets.map(image => {
-          arr.push({uri: 'data:image/jpeg;base64,' + image.base64});
+          arr.push({uri: image.uri, type: image.type, name: image.fileName});
         });
       arr.length > 3 ? alert('Only 3 images allowed') : setImageUri(arr);
     });
