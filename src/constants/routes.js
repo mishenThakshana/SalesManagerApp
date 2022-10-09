@@ -13,4 +13,9 @@ export default {
   ADD_SIZE: 'Add Size',
   CATEGORY: 'Category',
   PRODUCT_DETAILS: 'Product Details',
+  USER_NAVIGATOR: 'Manage Users',
+  USERS: 'Users',
+  ALL_USERS: 'All Users',
+  MANAGE_USER: 'Manage User',
+  CHANGE_PASSWORD: 'Change Password',
 };

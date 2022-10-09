@@ -8,6 +8,7 @@ export {default as FormAlert} from './FormAlert';
 export {default as FormCancel} from './FormCancel';
 export {default as FormImageRow} from './FormImageRow';
 export {default as CategoryPicker} from './CategoryPicker';
+export {default as RolePicker} from './RolePicker';
 export {default as SizePicker} from './SizePicker';
 export {default as DayPicker} from './DayPicker';
 export {default as FormColorPicker} from './FormColorPicker';

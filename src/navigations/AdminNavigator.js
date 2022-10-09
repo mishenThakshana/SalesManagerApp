@@ -1,7 +1,8 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {Dashboard, Products} from 'src/screens/admin';
+import {Dashboard} from 'src/screens/admin';
 import {ModifiedDrawer} from 'src/components/layout';
 import ProductNavigator from './ProductNavigator';
+import UserNavigator from './UserNavigator';
 import routes from 'src/constants/routes';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -33,6 +34,15 @@ const AdminNavigator = () => {
         options={{
           drawerIcon: ({color}) => (
             <Ionicons name="pricetags-outline" size={22} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name={routes.USER_NAVIGATOR}
+        component={UserNavigator}
+        options={{
+          drawerIcon: ({color}) => (
+            <Ionicons name="ios-people-outline" size={22} color={color} />
           ),
         }}
       />

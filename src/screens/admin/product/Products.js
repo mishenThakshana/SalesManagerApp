@@ -1,4 +1,4 @@
-import {SafeAreaView, ScrollView, View} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {Topbar, LargeBtn} from 'src/components/layout';
 import routes from 'src/constants/routes';
 

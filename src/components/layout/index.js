@@ -7,3 +7,4 @@ export {default as ItemCard} from './ItemCard';
 export {default as ProductCard} from './ProductCard';
 export {default as StockCard} from './StockCard';
 export {default as EmptyScreenFull} from './EmptyScreenFull';
+export {default as UserCard} from './UserCard';
