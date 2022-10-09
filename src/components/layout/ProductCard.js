@@ -3,7 +3,7 @@ import routes from 'src/constants/routes';
 import styles from 'src/styles/Global.style';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
-const ProductCard = ({item, navigation}) => {
+const ProductCard = ({item, navigation, deleteHandler}) => {
   return (
     <View style={styles.productCardContainer}>
       <View style={styles.productCardTextBlock}>
@@ -44,7 +44,7 @@ const ProductCard = ({item, navigation}) => {
             <Ionicon name="ios-create-outline" size={22} color="#fff" />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => deleteHandler(item.id)}>
           <View style={styles.productCardBtn}>
             <Ionicon name="ios-trash-outline" size={22} color="#fff" />
           </View>

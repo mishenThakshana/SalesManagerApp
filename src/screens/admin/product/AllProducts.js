@@ -4,8 +4,13 @@ import {
   FlatList,
   ActivityIndicator,
   ScrollView,
+  Alert,
 } from 'react-native';
-import {SingleTopbar, ProductCard} from 'src/components/layout';
+import {
+  SingleTopbar,
+  ProductCard,
+  EmptyScreenFull,
+} from 'src/components/layout';
 import {FormInputWithLink} from 'src/components/form';
 import {protectedHttp} from 'src/helpers/HttpHelper';
 import {useEffect, useState} from 'react';
@@ -26,6 +31,26 @@ const AllProducts = ({navigation}) => {
       }
       setProducts([...products, ...res.data.data]);
     });
+  };
+
+  const deleteProduct = id => {
+    Alert.alert('Remove Product', 'Are you sure to delete this product?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Yes',
+        onPress: () => {
+          protectedHttp
+            .delete(`/product/${id}`)
+            .then(res => {
+              setProducts(products.filter(product => product.id !== id));
+            })
+            .catch(error => console.log('error'));
+        },
+      },
+    ]);
   };
 
   const searchProduct = () => {
@@ -73,19 +98,26 @@ const AllProducts = ({navigation}) => {
         value={keyword}
         btnHandler={searchProduct}
       />
+      {products.length === 0 && loader === false ? <EmptyScreenFull /> : null}
       {filteredProducts.length > 0 ? (
         <ScrollView>{filterComponent()}</ScrollView>
       ) : (
-        <FlatList
-          data={products}
-          renderItem={({item}) => (
-            <ProductCard item={item} navigation={navigation} />
-          )}
-          keyExtractor={(item, index) => String(index)}
-          onEndReachedThreshold={0}
-          onEndReached={loadMoreProducts}
-          ListFooterComponent={renderLoader}
-        />
+        products && (
+          <FlatList
+            data={products}
+            renderItem={({item}) => (
+              <ProductCard
+                item={item}
+                navigation={navigation}
+                deleteHandler={deleteProduct}
+              />
+            )}
+            keyExtractor={(item, index) => String(index)}
+            onEndReachedThreshold={0}
+            onEndReached={loadMoreProducts}
+            ListFooterComponent={renderLoader}
+          />
+        )
       )}
     </SafeAreaView>
   );
