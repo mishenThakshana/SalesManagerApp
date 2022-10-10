@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react';
-import {Alert, SafeAreaView, ScrollView, View} from 'react-native';
+import {useState} from 'react';
+import {SafeAreaView, ScrollView, View} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import {SingleTopbar} from 'src/components/layout';
 import {
@@ -8,52 +8,52 @@ import {
   RolePicker,
   FormInputWithLink,
   FormRadio,
-  FormSecondaryBtn,
-  FormBtnDanger,
 } from 'src/components/form';
 import {protectedHttp} from 'src/helpers/HttpHelper';
 import {firstValueOf} from 'src/helpers/HelperFunctions';
-import routes from 'src/constants/routes';
 
-const ManageUser = ({route, navigation}) => {
-  const {user} = route.params;
+const AddNewUser = ({route, navigation}) => {
   const isFocused = useIsFocused();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [telephone, setTelephone] = useState('');
+  const [password, setPassword] = useState('');
   const [roles, setRoles] = useState([
-    {id: 1, role: 'Admin'},
     {id: 2, role: 'User'},
+    {id: 1, role: 'Admin'},
   ]);
   const [status, setStatus] = useState(false);
-  const [selectedRole, setSelectedRole] = useState('');
-  const [selectedRoleObject, setSelectedRoleObject] = useState({
-    id: 2,
-    role: 'User',
-  });
+  const [selectedRole, setSelectedRole] = useState('2');
   const [maxCom, setMaxCom] = useState('0');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const updateUser = () => {
+  const addNewUser = () => {
     setError('');
     setLoading(true);
     protectedHttp
-      .put(`/user/${user.id}`, {
+      .post(`/user`, {
         username,
         email,
+        password,
         telephone,
-        role: selectedRole,
+        role: Number(selectedRole),
         maxCom,
         status: status ? 1 : 0,
         addedDate: Date.now(),
       })
       .then(res => {
-        setSuccess('User Updated Successfully');
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setTelephone('');
+        setMaxCom('');
+        setSuccess('User Added Successfully');
         setTimeout(() => {
           setSuccess('');
         }, 4000);
+        console.log(res.data);
       })
       .catch(error => {
         setSuccess('');
@@ -62,51 +62,11 @@ const ManageUser = ({route, navigation}) => {
       .finally(() => setLoading(false));
   };
 
-  const deleteUser = id => {
-    Alert.alert('Remove User', 'Are you sure to remove this user?', [
-      {
-        text: 'Cancel',
-        style: 'cancel',
-      },
-      {
-        text: 'Yes',
-        onPress: () => {
-          protectedHttp
-            .delete(`/user/${id}`)
-            .then(res => {
-              navigation.navigate(routes.USERS);
-            })
-            .catch(error => console.log('error'));
-        },
-      },
-    ]);
-  };
-
-  useEffect(() => {
-    setUsername(user.username);
-    setEmail(user.email);
-    setTelephone(user.telephone);
-    setStatus(user.status === 1 ? true : false);
-    setSelectedRole(user.role);
-    setSelectedRoleObject({
-      id: user.role,
-      role: user.role === 1 ? 'Admin' : 'User',
-    });
-  }, [isFocused]);
-
   const toggleStatus = () => setStatus(!status);
-
-  useEffect(() => {
-    setRoles(roles.filter(role => role.id !== selectedRole));
-  }, [selectedRoleObject]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <SingleTopbar
-        title="Manage User"
-        navigation={navigation}
-        customBack={() => navigation.navigate(routes.USERS)}
-      />
+      <SingleTopbar title="Add New User" navigation={navigation} />
       <ScrollView>
         <View style={{alignItems: 'center'}}>
           {error && <FormAlert type="danger" message={error} />}
@@ -125,6 +85,13 @@ const ManageUser = ({route, navigation}) => {
             value={email}
             btnLabel="Email"
             type="email"
+          />
+          <FormInputWithLink
+            handler={setPassword}
+            placeholder="Password"
+            value={password}
+            btnLabel="Password"
+            type="password"
           />
           <FormInputWithLink
             handler={setTelephone}
@@ -146,29 +113,15 @@ const ManageUser = ({route, navigation}) => {
           handler={setSelectedRole}
           value={selectedRole}
           array={roles}
-          selectedRole={selectedRoleObject}
         />
 
-        <View style={{marginVertical: 30}}>
+        <View style={{marginVertical: 10}}>
           <FormRadio handler={toggleStatus} value={status} text="Approved?" />
         </View>
-
-        <FormSecondaryBtn
-          handler={() =>
-            navigation.navigate(routes.CHANGE_PASSWORD, {id: user.id})
-          }
-          icon="ios-lock-closed-outline"
-          label="Change Password?"
-        />
-        <FormBtnDanger
-          handler={() => deleteUser(user.id)}
-          icon="ios-trash-outline"
-          label="Remove User"
-        />
         <FormPrimaryBtn
-          handler={updateUser}
-          icon="ios-create-outline"
-          label="Update User"
+          handler={addNewUser}
+          icon="ios-add-circle-outline"
+          label="Add New User"
           loading={loading}
         />
       </ScrollView>
@@ -176,4 +129,4 @@ const ManageUser = ({route, navigation}) => {
   );
 };
 
-export default ManageUser;
+export default AddNewUser;

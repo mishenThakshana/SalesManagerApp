@@ -16,6 +16,8 @@ export default {
   USER_NAVIGATOR: 'Manage Users',
   USERS: 'Users',
   ALL_USERS: 'All Users',
+  ADD_NEW_USER: 'Add New User',
   MANAGE_USER: 'Manage User',
   CHANGE_PASSWORD: 'Change Password',
+  PENDING_APPROVALS: 'Pending Approvals',
 };

@@ -2,6 +2,7 @@ export {default as FormTitle} from './FormTitle';
 export {default as FormInput} from './FormInput';
 export {default as FormPrimaryBtn} from './FormPrimaryBtn';
 export {default as FormSecondaryBtn} from './FormSecondaryBtn';
+export {default as FormBtnDanger} from './FormBtnDanger';
 export {default as FormBtnLg} from './FormBtnLg';
 export {default as FormLink} from './FormLink';
 export {default as FormAlert} from './FormAlert';

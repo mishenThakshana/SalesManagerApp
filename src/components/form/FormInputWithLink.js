@@ -32,8 +32,17 @@ const FormInputWithLink = ({
             color: '#000',
           }}
           value={value}
+          secureTextEntry={type === 'password' ? true : false}
           placeholderTextColor="#A9A9A9"
-          keyboardType={type === 'number' ? 'number-pad' : ''}
+          keyboardType={
+            type === 'email'
+              ? 'email-address'
+              : type === 'mobile'
+              ? 'phone-pad'
+              : type === 'number'
+              ? 'numeric'
+              : ''
+          }
           editable={!disabled}
         />
         <TouchableOpacity onPress={btnHandler}>

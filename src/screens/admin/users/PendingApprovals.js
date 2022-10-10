@@ -11,7 +11,7 @@ import {SingleTopbar, UserCard, EmptyScreenFull} from 'src/components/layout';
 import {FormInputWithLink} from 'src/components/form';
 import {protectedHttp} from 'src/helpers/HttpHelper';
 
-const AllUsers = ({navigation}) => {
+const PendingApprovals = ({navigation}) => {
   const [keyword, setKeyword] = useState('');
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -19,7 +19,7 @@ const AllUsers = ({navigation}) => {
   const [loader, setLoader] = useState(true);
 
   const getUsers = () => {
-    protectedHttp.get(`/user?page=${page}`).then(res => {
+    protectedHttp.get(`/get-pending-user-approvals?page=${page}`).then(res => {
       if (res.data.current_page < res.data.last_page) {
         setLoader(true);
       } else {
@@ -34,10 +34,12 @@ const AllUsers = ({navigation}) => {
       alert('Please enter something');
     } else {
       setFilteredUsers([]);
-      protectedHttp.get(`/search-user/${keyword}`).then(res => {
-        res.data.length === 0 && alert('No user found with this username');
-        setFilteredUsers(res.data);
-      });
+      protectedHttp
+        .get(`/search-pending-approval-user/${keyword}`)
+        .then(res => {
+          res.data.length === 0 && alert('No user found with this username');
+          setFilteredUsers(res.data);
+        });
     }
   };
 
@@ -65,7 +67,7 @@ const AllUsers = ({navigation}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-      <SingleTopbar title="All Users" navigation={navigation} />
+      <SingleTopbar title="Pending Approvals" navigation={navigation} />
       <FormInputWithLink
         handler={setKeyword}
         placeholder="Search User"
@@ -94,4 +96,4 @@ const AllUsers = ({navigation}) => {
   );
 };
 
-export default AllUsers;
+export default PendingApprovals;

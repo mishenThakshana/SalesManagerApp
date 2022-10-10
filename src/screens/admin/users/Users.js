@@ -7,8 +7,16 @@ const Users = ({navigation}) => {
     <SafeAreaView>
       <Topbar title="Users" navigation={navigation} />
       <LargeBtn
+        handler={() => navigation.navigate(routes.ADD_NEW_USER)}
+        label="Add New User"
+      />
+      <LargeBtn
         handler={() => navigation.navigate(routes.ALL_USERS)}
         label="All Users"
+      />
+      <LargeBtn
+        handler={() => navigation.navigate(routes.PENDING_APPROVALS)}
+        label="Pending Approvals"
       />
     </SafeAreaView>
   );
