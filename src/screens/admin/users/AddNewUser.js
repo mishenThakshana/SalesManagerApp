@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import {SafeAreaView, ScrollView, View} from 'react-native';
-import {useIsFocused} from '@react-navigation/native';
 import {SingleTopbar} from 'src/components/layout';
 import {
   FormAlert,
@@ -12,8 +11,7 @@ import {
 import {protectedHttp} from 'src/helpers/HttpHelper';
 import {firstValueOf} from 'src/helpers/HelperFunctions';
 
-const AddNewUser = ({route, navigation}) => {
-  const isFocused = useIsFocused();
+const AddNewUser = ({ navigation}) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [telephone, setTelephone] = useState('');

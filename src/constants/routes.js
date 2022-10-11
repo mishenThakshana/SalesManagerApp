@@ -20,4 +20,12 @@ export default {
   MANAGE_USER: 'Manage User',
   CHANGE_PASSWORD: 'Change Password',
   PENDING_APPROVALS: 'Pending Approvals',
+  //App user routes
+  HOME: 'Home',
+  ORDERS: 'Orders',
+  SEARCH: 'Search',
+  PROFILE: 'Profile',
+  //App user product routes
+  USER_PRODUCT_NAVIGATOR: 'User Product Navigator',
+  VIEW_PRODUCT: 'View Product',
 };

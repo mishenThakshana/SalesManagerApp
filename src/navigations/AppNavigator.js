@@ -3,7 +3,7 @@ import {useContext} from 'react';
 import {AuthContext} from 'src/context/AuthContext';
 import AuthNavigator from './AuthNavigator';
 import AdminNavigator from './AdminNavigator';
-import {Text} from 'react-native';
+import AppUserNavigator from './AppUserNavigator';
 
 const AppNavigation = () => {
   const {isAuthenticated, userRole} = useContext(AuthContext);
@@ -14,7 +14,7 @@ const AppNavigation = () => {
       ) : userRole === 1 ? (
         <AdminNavigator />
       ) : (
-        <Text>User</Text>
+        <AppUserNavigator />
       )}
     </NavigationContainer>
   );
