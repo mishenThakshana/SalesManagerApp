@@ -3,6 +3,7 @@ import {Dashboard} from 'src/screens/admin';
 import {ModifiedDrawer} from 'src/components/layout';
 import ProductNavigator from './ProductNavigator';
 import UserNavigator from './UserNavigator';
+import OrderNavigator from './OrderNavigator';
 import routes from 'src/constants/routes';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -44,6 +45,16 @@ const AdminNavigator = () => {
           drawerIcon: ({color}) => (
             <Ionicons name="ios-people-outline" size={22} color={color} />
           ),
+        }}
+      />
+      <Drawer.Screen
+        name={routes.ORDER_NAVIGATOR}
+        component={OrderNavigator}
+        options={{
+          drawerIcon: ({color}) => (
+            <Ionicons name="ios-cart-outline" size={22} color={color} />
+          ),
+          title: 'Orders',
         }}
       />
     </Drawer.Navigator>

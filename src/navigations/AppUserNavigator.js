@@ -1,6 +1,8 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Orders, Search, Profile} from 'src/screens/user';
+import {Profile} from 'src/screens/user';
 import UserProductNavigator from './UserProductNavigator';
+import UserOrderNavigator from './UserOrderNavigator';
+import UserSearchNavigator from './UserSearchNavigator';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import routes from 'src/constants/routes';
 
@@ -31,8 +33,8 @@ const AppUserNavigator = () => {
         }}
       />
       <BottomTab.Screen
-        name={routes.SEARCH}
-        component={Search}
+        name={routes.USER_SEARCH_NAVIGATOR}
+        component={UserSearchNavigator}
         options={{
           tabBarActiveTintColor: '#8200d6',
           tabBarIcon: ({color, size}) => (
@@ -41,8 +43,8 @@ const AppUserNavigator = () => {
         }}
       />
       <BottomTab.Screen
-        name={routes.ORDERS}
-        component={Orders}
+        name={routes.USER_ORDER_NAVIGATOR}
+        component={UserOrderNavigator}
         options={{
           tabBarActiveTintColor: '#8200d6',
           tabBarIcon: ({color, size}) => (

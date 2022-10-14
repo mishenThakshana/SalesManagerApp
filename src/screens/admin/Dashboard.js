@@ -9,6 +9,7 @@ const Dashboard = ({navigation}) => {
   const isFocused = useIsFocused();
   const [userCount, setUserCount] = useState(0);
   const [productCount, setProductCount] = useState(0);
+  const [ordersCount, setOrdersCount] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
 
   const getUserCount = () => {
@@ -23,10 +24,17 @@ const Dashboard = ({navigation}) => {
     });
   };
 
+  const getOrderCount = () => {
+    return protectedHttp.get('/get-orders-count').then(res => {
+      setOrdersCount(res.data);
+    });
+  };
+
   useEffect(() => {
     if (isFocused) {
       getProductCount();
       getUserCount();
+      getOrderCount();
     }
   }, [isFocused]);
 
@@ -53,7 +61,7 @@ const Dashboard = ({navigation}) => {
           {/* <Card icon="ios-cart" title="Sales" amount="120" /> */}
           <Card icon="people" title="Users" amount={userCount} />
           <Card icon="ios-pricetags" title="Products" amount={productCount} />
-          <Card icon="ios-cube" title="Orders" amount="0" />
+          <Card icon="ios-cube" title="Orders" amount={ordersCount} />
         </View>
       </ScrollView>
     </SafeAreaView>

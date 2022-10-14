@@ -14,3 +14,4 @@ export {default as ImgSlider} from './ImgSlider';
 export {default as ColorChooser} from './ColorChooser';
 export {default as SizeChooser} from './SizeChooser';
 export {default as AmountAvailableCard} from './AmountAvailableCard';
+export {default as OrderCard} from './OrderCard';

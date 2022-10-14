@@ -69,10 +69,6 @@ export const CartProvider = ({children}) => {
   };
 
   useEffect(() => {
-    console.log(cart);
-  }, [cart]);
-
-  useEffect(() => {
     initCart();
   }, []);
 
