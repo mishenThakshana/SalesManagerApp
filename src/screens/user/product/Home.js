@@ -35,7 +35,7 @@ const Home = ({navigation}) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <UserTopbar title="All Products" />
+      <UserTopbar title="All Products" navigation={navigation} />
 
       {products && (
         <FlatList
@@ -44,7 +44,9 @@ const Home = ({navigation}) => {
             justifyContent: 'center',
           }}
           data={products}
-          renderItem={({item}) => <UserProductCard item={item} navigation={navigation}/>}
+          renderItem={({item}) => (
+            <UserProductCard item={item} navigation={navigation} />
+          )}
           keyExtractor={(item, index) => String(index)}
           onEndReachedThreshold={0}
           onEndReached={loadMoreProducts}

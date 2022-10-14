@@ -10,3 +10,7 @@ export {default as EmptyScreenFull} from './EmptyScreenFull';
 export {default as UserCard} from './UserCard';
 export {default as UserTopbar} from './UserTopbar';
 export {default as UserProductCard} from './UserProductCard';
+export {default as ImgSlider} from './ImgSlider';
+export {default as ColorChooser} from './ColorChooser';
+export {default as SizeChooser} from './SizeChooser';
+export {default as AmountAvailableCard} from './AmountAvailableCard';

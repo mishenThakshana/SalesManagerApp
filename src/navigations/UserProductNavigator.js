@@ -1,6 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import {TransitionPresets} from '@react-navigation/stack';
-import {Home, ViewProduct} from 'src/screens/user/product';
+import {Home, ViewProduct, Cart} from 'src/screens/user/product';
 import routes from 'src/constants/routes';
 
 const Stack = createStackNavigator();
@@ -15,6 +15,7 @@ const UserProductNavigator = () => {
       }}>
       <Stack.Screen name={routes.HOME} component={Home} />
       <Stack.Screen name={routes.VIEW_PRODUCT} component={ViewProduct} />
+      <Stack.Screen name={routes.CART} component={Cart} />
     </Stack.Navigator>
   );
 };

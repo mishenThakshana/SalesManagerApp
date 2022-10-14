@@ -28,4 +28,5 @@ export default {
   //App user product routes
   USER_PRODUCT_NAVIGATOR: 'User Product Navigator',
   VIEW_PRODUCT: 'View Product',
+  CART: 'Cart',
 };
