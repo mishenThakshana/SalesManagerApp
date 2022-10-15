@@ -99,7 +99,7 @@ const ViewOrder = ({route, navigation}) => {
           </View>
         </View>
       </ScrollView>
-      <View style={{alignItems: 'center'}}>
+      <View style={{alignItems: 'center', backgroundColor: '#F9F6EE'}}>
         <View>
           <Text
             style={{
