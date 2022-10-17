@@ -2,6 +2,7 @@ export default {
   LOGIN: 'Login',
   REGISTER: 'Register',
   ADMIN_NAVIGATOR: 'AdminNavigator',
+  DASHBOARD_NAVIGATOR: 'Dashboard Navigator',
   DASHBOARD: 'Dashboard',
   PRODUCT_NAVIGATOR: 'Products',
   PRODUCTS: 'Products Screen',

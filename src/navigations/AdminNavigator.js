@@ -1,6 +1,7 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {Dashboard} from 'src/screens/admin';
 import {ModifiedDrawer} from 'src/components/layout';
+import AdminDashboardNavigator from './AdminDashboardNavigator';
 import ProductNavigator from './ProductNavigator';
 import UserNavigator from './UserNavigator';
 import OrderNavigator from './OrderNavigator';
@@ -21,12 +22,13 @@ const AdminNavigator = () => {
         drawerLabelStyle: {marginLeft: -25, fontSize: 15},
       }}>
       <Drawer.Screen
-        name={routes.DASHBOARD}
-        component={Dashboard}
+        name={routes.DASHBOARD_NAVIGATOR}
+        component={AdminDashboardNavigator}
         options={{
           drawerIcon: ({color}) => (
             <Ionicons name="grid-outline" size={22} color={color} />
           ),
+          title: 'Dashboard',
         }}
       />
       <Drawer.Screen

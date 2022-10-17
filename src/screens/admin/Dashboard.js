@@ -4,6 +4,7 @@ import {RefreshControl, SafeAreaView, ScrollView, View} from 'react-native';
 import {protectedHttp} from 'src/helpers/HttpHelper';
 import {Topbar} from 'src/components/layout';
 import Card from 'src/components/layout/Card';
+import routes from 'src/constants/routes';
 
 const Dashboard = ({navigation}) => {
   const isFocused = useIsFocused();
@@ -58,10 +59,24 @@ const Dashboard = ({navigation}) => {
           />
         }>
         <View style={{flex: 1, marginBottom: 60}}>
-          {/* <Card icon="ios-cart" title="Sales" amount="120" /> */}
-          <Card icon="people" title="Users" amount={userCount} />
-          <Card icon="ios-pricetags" title="Products" amount={productCount} />
-          <Card icon="ios-cube" title="Orders" amount={ordersCount} />
+          <Card
+            handler={() => navigation.navigate(routes.ALL_USERS)}
+            icon="people"
+            title="Users"
+            amount={userCount}
+          />
+          <Card
+            handler={() => navigation.navigate(routes.ALL_PRODUCTS)}
+            icon="ios-pricetags"
+            title="Products"
+            amount={productCount}
+          />
+          <Card
+            handler={() => navigation.navigate(routes.ALL_ORDERS)}
+            icon="ios-cube"
+            title="Orders"
+            amount={ordersCount}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
