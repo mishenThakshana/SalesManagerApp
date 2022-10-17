@@ -5,6 +5,7 @@ import {
   AllOrders,
   ViewOrder,
   PendingOrders,
+  ViewCommisionRecord,
 } from 'src/screens/admin/orders';
 import routes from 'src/constants/routes';
 
@@ -21,6 +22,10 @@ const OrderNavigator = () => {
       <Stack.Screen name={routes.ORDERS} component={Orders} />
       <Stack.Screen name={routes.ALL_ORDERS} component={AllOrders} />
       <Stack.Screen name={routes.VIEW_ORDER} component={ViewOrder} />
+      <Stack.Screen
+        name={routes.VIEW_COMMISION_RECORD}
+        component={ViewCommisionRecord}
+      />
       <Stack.Screen name={routes.PENDING_ORDERS} component={PendingOrders} />
     </Stack.Navigator>
   );

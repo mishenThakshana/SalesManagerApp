@@ -4,6 +4,7 @@ import styles from 'src/styles/Global.style';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
 const UserOrderCard = ({item, navigation}) => {
+  console.log(item);
   return (
     <View style={styles.productCardContainer}>
       <View style={styles.productCardTextBlock}>

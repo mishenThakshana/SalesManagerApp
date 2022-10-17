@@ -1,10 +1,13 @@
 import {useContext} from 'react';
-import {SafeAreaView, Text, Button, View, Alert} from 'react-native';
+import {Alert, SafeAreaView} from 'react-native';
+import {UserTopbar} from 'src/components/layout';
+import {ProfileOption} from 'src/components/profile';
+import {protectedHttp} from 'src/helpers/HttpHelper';
 import {AuthContext} from 'src/context/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {protectedHttp} from 'src/helpers/HttpHelper';
+import routes from 'src/constants/routes';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   const {setIsAuthenticated, setUser, setUserToken, setUserRole} =
     useContext(AuthContext);
   const logoutUser = () => {
@@ -31,12 +34,20 @@ const Profile = () => {
       },
     ]);
   };
+
   return (
-    <SafeAreaView
-      style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <View>
-        <Button onPress={logoutUser} title="Logout" />
-      </View>
+    <SafeAreaView style={{flex: 1}}>
+      <UserTopbar title="Profile" navigation={navigation} />
+      <ProfileOption
+        action={() => navigation.navigate(routes.UPDATE_USER_PROFILE)}
+        icon="ios-create-outline"
+        title="Update Profile"
+      />
+      <ProfileOption
+        action={() => logoutUser()}
+        icon="ios-power-outline"
+        title="Log out"
+      />
     </SafeAreaView>
   );
 };

@@ -7,7 +7,12 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {SingleTopbar} from 'src/components/layout';
-import {FormInput, FormPrimaryBtn, FormSecondaryBtn} from 'src/components/form';
+import {
+  FormInput,
+  FormPrimaryBtn,
+  FormSecondaryBtn,
+  FormLink,
+} from 'src/components/form';
 import {OrderCard} from 'src/components/order';
 import {protectedHttp} from 'src/helpers/HttpHelper';
 import {format} from 'date-fns';
@@ -78,6 +83,15 @@ const ViewOrder = ({route, navigation}) => {
           <Text style={{color: '#A9A9A9', fontSize: 16, fontWeight: 'bold'}}>
             Order placed: {order && format(order.created, 'yyyy-MMMM-dd')}
           </Text>
+        </View>
+        <View style={{alignItems: 'center', marginVertical: 10}}>
+          <FormLink
+            handler={() =>
+              navigation.navigate(routes.VIEW_COMMISION_RECORD, {id})
+            }
+            mainText="Click to view the"
+            subText="commision record"
+          />
         </View>
         <View
           style={{

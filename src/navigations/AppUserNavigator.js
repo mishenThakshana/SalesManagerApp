@@ -3,6 +3,7 @@ import {Profile} from 'src/screens/user';
 import UserProductNavigator from './UserProductNavigator';
 import UserOrderNavigator from './UserOrderNavigator';
 import UserSearchNavigator from './UserSearchNavigator';
+import UserProfileNavigator from './UserProfileNavigator';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import routes from 'src/constants/routes';
 
@@ -53,8 +54,8 @@ const AppUserNavigator = () => {
         }}
       />
       <BottomTab.Screen
-        name={routes.PROFILE}
-        component={Profile}
+        name={routes.PROFILE_NAVIGATOR}
+        component={UserProfileNavigator}
         options={{
           tabBarActiveTintColor: '#8200d6',
           tabBarIcon: ({color, size}) => (

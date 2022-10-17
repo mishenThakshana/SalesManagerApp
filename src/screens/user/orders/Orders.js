@@ -1,13 +1,16 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {View, SafeAreaView, FlatList, ActivityIndicator} from 'react-native';
 import {UserTopbar, EmptyScreenFull} from 'src/components/layout';
-import {UserOrderCard} from 'src/components/order';
+import {UserOrderCard, CommisionCard} from 'src/components/order';
 import {protectedHttp} from 'src/helpers/HttpHelper';
+import {AuthContext} from 'src/context/AuthContext';
 
 const Orders = ({navigation}) => {
+  const {user} = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(1);
   const [loader, setLoader] = useState(true);
+  const [commissionTotal, setCommissionTotal] = useState(0);
 
   const getOrders = () => {
     protectedHttp.get(`/get-user-orders?page=${page}`).then(res => {
@@ -20,13 +23,33 @@ const Orders = ({navigation}) => {
     });
   };
 
+  const getCommissionEarnings = () => {
+    protectedHttp.get(`get-user-total-commissions/${user.id}`).then(res => {
+      if (res.data.earnings) {
+        setCommissionTotal(res.data.earnings);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getCommissionEarnings();
+  }, []);
+
   useEffect(() => {
     getOrders();
   }, [page]);
 
   const renderLoader = () => {
     return (
-      <View>{loader && <ActivityIndicator size={28} color="#8200d6" />}</View>
+      <View>
+        {loader && (
+          <ActivityIndicator
+            style={{marginVertical: 10}}
+            size={28}
+            color="#8200d6"
+          />
+        )}
+      </View>
     );
   };
 
@@ -37,6 +60,7 @@ const Orders = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <UserTopbar title="My Orders" navigation={navigation} />
+      <CommisionCard total={commissionTotal} />
       {orders.length === 0 && loader === false ? <EmptyScreenFull /> : null}
       {orders && (
         <FlatList

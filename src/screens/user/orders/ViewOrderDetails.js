@@ -15,8 +15,8 @@ import routes from 'src/constants/routes';
 
 const ViewOrderDetails = ({route, navigation}) => {
   const {item} = route.params;
-
   const [orderItems, setOrderItems] = useState([]);
+  const [commisionRecord, setCommisionRecord] = useState('');
 
   const getOrderDetails = () => {
     protectedHttp.get(`/order/${item.id}`).then(res => {
@@ -24,8 +24,17 @@ const ViewOrderDetails = ({route, navigation}) => {
     });
   };
 
+  const getCommisionRecord = () => {
+    protectedHttp
+      .get(`/get-commision-record-of-the-order/${item.id}`)
+      .then(res => {
+        setCommisionRecord(res.data);
+      });
+  };
+
   useEffect(() => {
     getOrderDetails();
+    getCommisionRecord();
   }, []);
 
   return (
@@ -36,6 +45,23 @@ const ViewOrderDetails = ({route, navigation}) => {
           <Text style={{color: '#A9A9A9', fontSize: 16, fontWeight: 'bold'}}>
             Order placed: {item && format(item.created, 'yyyy-MMMM-dd')}
           </Text>
+          {commisionRecord && (
+            <Text
+              style={{
+                color: '#8200d6',
+                fontSize: 16,
+                fontWeight: 'bold',
+                marginVertical: 10,
+              }}>
+              Commision: Rs.{commisionRecord.price}
+              {'  '}
+              {commisionRecord.status === 0 ? (
+                <Text style={{color: 'red'}}>Unpaid</Text>
+              ) : (
+                <Text style={{color: 'green'}}>Paid</Text>
+              )}
+            </Text>
+          )}
         </View>
         <View
           style={{

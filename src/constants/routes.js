@@ -25,6 +25,7 @@ export default {
   ALL_ORDERS: 'All Orders',
   VIEW_ORDER: 'View Order',
   PENDING_ORDERS: 'Pending Orders',
+  VIEW_COMMISION_RECORD: 'View Commision Record',
   //App user routes
   HOME: 'Home',
   ORDERS: 'Orders',
@@ -41,4 +42,9 @@ export default {
   //App user search routes
   SEARCH: 'Search',
   USER_SEARCH_NAVIGATOR: 'User Search Navigator',
+  //App profile routes
+  PROFILE_NAVIGATOR: 'Profile Navigator',
+  PROFILE: 'Profile',
+  UPDATE_USER_PROFILE: 'Update User Profile',
+  CHANGE_USER_PASSWORD: 'Change User Password',
 };

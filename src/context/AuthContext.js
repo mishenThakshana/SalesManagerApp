@@ -30,6 +30,10 @@ export const AuthProvider = ({children}) => {
     user !== null && setIsAuthenticated(true);
   }, [user]);
 
+  useEffect(() => {
+    AsyncStorage.setItem('app_user', JSON.stringify(user));
+  }, [user]);
+
   return (
     <AuthContext.Provider
       value={{
